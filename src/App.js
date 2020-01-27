@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { CardList } from './components/card-list/card-list.component';
 import './App.css';
 
 class App extends Component {
@@ -7,31 +7,28 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [
-        {
-          name: 'Clem',
-          id: 'adfje'
-        },
-        {
-          name: 'Spike',
-          id: 'pakdj'
-        },
-        {
-          name: 'Anya',
-          id: 'weksl'
-        },
-      ]
+      monsters: [],
+      searchField: ''
     };
+  }
+
+  componentDidMount () {
+    fetch('https://jsonplaceholder.typicode.com/users') // make a request for the data at this url
+    .then(response => response.json()) // convert the response into json, so we can use it within our JS
+    .then(users => this.setState( {monsters: users} )); // set our monsters array to the user data we just fetched
   }
 
   render () {
     return(
       <div className='App'>
-        {
-          this.state.monsters.map(monster => (
-            <h1 key={monster.id}>{monster.name}</h1>
-          ))
-        }
+        <input 
+          type='search' 
+          placeholder='Search Monsters' 
+          onChange={e => {
+            this.setState({ searchField: e.target.value });
+          }}
+        />
+        <CardList monsters={this.state.monsters} />
       </div>
     );
   }
