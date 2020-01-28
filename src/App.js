@@ -20,16 +20,26 @@ class App extends Component {
   }
 
   render () {
-    const { monsters, searchField } = this.state;
+    const { monsters, searchField } = this.state; // obj destructuring - const monsters = this.state.monsters
+    
+    // set new variable filteredMonsters to the return value of monsters.filter() which is a new 
+    // array including only the monster names which include the value of the searchField input
     const filteredMonsters = monsters.filter(monster =>
       monster.name.toLowerCase().includes(searchField.toLowerCase())
     )
+    
+    // return a div containing the search-box component and the card-list component, which contains
+    // as many cards as come in through the API via fetch
+    // 
     return(
       <div className='App'>
         <SearchBox 
-          placeholder='Search Monsters' 
-          handleChange={e => this.setState({ searchField: e.target.value })}/>
-        <CardList monsters={filteredMonsters} />
+          placeholder='Search Monsters' // set placeholder and handleChange values on each instance
+          handleChange={e => this.setState({ searchField: e.target.value })}
+        />
+        <CardList 
+          monsters={filteredMonsters} 
+        />
       </div>
     );
   }

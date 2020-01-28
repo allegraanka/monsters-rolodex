@@ -5,7 +5,7 @@ export const SearchBox = ({ placeholder, handleChange}) => (
     <input
         className='search'
         type='search'
-        placeholder={placeholder}
-        onChange={handleChange}
+        placeholder={placeholder} // set placeholder to whatever value you pass it in each instance
+        onChange={handleChange} // set onChange to whatever handleChange is on each instance
     />
 );
